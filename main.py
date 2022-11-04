@@ -8,7 +8,7 @@ def predict():
     if json is None:
         return jsonify({"error": "message not provided"})
     message = json["message"]
-    prediction = model(message)
+    prediction = model(message)[0]
     return jsonify({"prediction": prediction})
 
 
