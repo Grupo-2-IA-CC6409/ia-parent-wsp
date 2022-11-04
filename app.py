@@ -1,8 +1,7 @@
-import json
-from torchvision import models
 from flask import Flask
+from transformers import pipeline
+
+MODEL_PATH = "pretrained-model"
 
 app = Flask(__name__)
-imagenet_class_index = json.load(open('imagenet_class_index.json'))
-model = models.densenet121(pretrained=True)
-model.eval()
+model = pipeline("text-classification", model=MODEL_PATH, tokenizer=MODEL_PATH)

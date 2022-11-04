@@ -1,13 +1,15 @@
-from app import app
-from utils import get_prediction
-from flask import Flask, jsonify, request
+from app import app, model
+from flask import jsonify, request
 
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    message = request.
-    class_id, class_name = get_prediction(message)
-    return jsonify({"class_id": class_id, "class_name": class_name})
+    json = request.get_json()
+    if json is None:
+        return jsonify({"error": "message not provided"})
+    message = json["message"]
+    prediction = model(message)
+    return jsonify({"prediction": prediction})
 
 
 if __name__ == "__main__":
